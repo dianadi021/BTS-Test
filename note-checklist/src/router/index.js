@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import WelcomeHome from "../views/pages/WelcomeHome.vue";
 import DashboardHome from "../views/pages/DashboardHome.vue";
+import NoteChecklist from "../views/detail/NoteChecklist.vue";
 
 const routes = [
 	{
@@ -14,6 +15,12 @@ const routes = [
 		path: "/dashboard",
 		name: "DashboardHome",
 		component: DashboardHome,
+		meta: { requiresAuth: true },
+	},
+	{
+		path: "/checklist/detail/:id",
+		name: "NoteChecklist",
+		component: NoteChecklist,
 		meta: { requiresAuth: true },
 	},
 ];
