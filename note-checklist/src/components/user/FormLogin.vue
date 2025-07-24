@@ -7,6 +7,7 @@
 
 	const username = ref("");
 	const password = ref("");
+	// "{\"email\":\"test@test\",\"username\":\"test\",\"password\":\"test\"}"
 	async function userOnLogin() {
 		try {
 			const res = await axios.post("http://94.74.86.174:8080/api/login", {
@@ -14,8 +15,15 @@
 				password: password.value,
 			});
 
-			sessionStorage.setItem("_token", JSON.stringify(res.data.user));
-			router.push("/");
+			const response = res?.data;
+			if (response.statusCode == 2110 && response.data) {				
+				const _token = response.data.token;
+
+				alert("Login sukses");
+				sessionStorage.setItem("_token", _token);
+				router.push('/');
+				window.location.reload();
+			}
 		} catch (err) {
 			alert("Login gagal: " + err.response?.data?.message || err.message);
 		}

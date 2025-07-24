@@ -7,12 +7,17 @@
 	const password = ref("");
 	async function userOnRegister() {
 		try {
-			const res = await axios.post("/api/register", {
+			const res = await axios.post("http://94.74.86.174:8080/api/register", {
 				email: email.value,
 				username: username.value,
 				password: password.value,
 			});
-			alert("Register sukses, silakan login.");
+			
+			const response = res?.data;
+			if (response.statusCode == 2000) {
+				alert("Register sukses, silakan login.");
+                window.location.reload();
+			}
 		} catch (err) {
 			alert("Gagal register: " + err.response?.data?.message || err.message);
 		}
