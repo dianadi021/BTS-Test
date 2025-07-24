@@ -5,6 +5,7 @@
 	const token = sessionStorage.getItem("_token");
 	const headers = { Authorization: `Bearer ${token}` };
 
+    // Checklist Section START
 	const isOpenModalTambahNote = ref(false);
 	function openModalTambahNote() {
 		isOpenModalTambahNote.value = !isOpenModalTambahNote.value;
@@ -44,11 +45,19 @@
 			alert("Gagal mengambil data note: " + err.response?.data?.message || err.message);
 		}
 	})();
+    // Checklist Section END
+
+    function setLogoutUser() { 
+        alert('Logout sukses')
+        sessionStorage.removeItem('_token')
+        window.location.reload()
+        router.push('/')
+    }
 </script>
 
 <template>
 	<div class="w-full flex justify-end p-3">
-		<button class="inline-flex items-center px-4 py-2 bg-danger border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-danger focus:bg-danger active:bg-danger focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Logout</button>
+		<button @click="setLogoutUser" class="inline-flex items-center px-4 py-2 bg-danger border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-danger focus:bg-danger active:bg-danger focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Logout</button>
 	</div>
 
 	<div class="w-full p-3">
@@ -85,6 +94,16 @@
 							<label :for="`item-${index}`">{{ item.name }}</label>
 						</li>
 					</ul>
+				</div>
+				<div class="mt-2">
+					<p class="mt-4 text-sm text-center">
+						<a
+							href="#"
+							@click.prevent="$emit('togggleChangeFormView')"
+							class="text-blue-500"
+							>Lihat detail</a
+						>
+					</p>
 				</div>
 			</div>
 		</div>
