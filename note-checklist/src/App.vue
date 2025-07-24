@@ -4,16 +4,15 @@
 	import WelcomeHome from "./views/pages/WelcomeHome.vue";
 	import DashboardHome from "./views/pages/DashboardHome.vue";
 
-	const store = useStore();	
+	const store = useStore();
 	const isLogin = computed(() => store.state.user.isLogin);
 </script>
 
 <template>
 	<template v-if="isLogin">
-		<DashboardHome></DashboardHome>
+		<router-view />
 	</template>
 	<template v-else>
-		<WelcomeHome></WelcomeHome>
+		<WelcomeHome />
 	</template>
 </template>
-
