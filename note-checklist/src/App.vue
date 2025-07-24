@@ -4,7 +4,7 @@
 	import WelcomeHome from "./views/pages/WelcomeHome.vue";
 	import DashboardHome from "./views/pages/DashboardHome.vue";
 
-	const store = useStore();
+	const store = useStore();	
 	const isLogin = computed(() => store.state.user.isLogin);
 </script>
 

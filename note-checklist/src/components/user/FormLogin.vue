@@ -22,6 +22,7 @@
 				alert("Login sukses");
 				sessionStorage.setItem("_token", _token);
 				router.push('/');
+				window.location.reload();
 			}
 		} catch (err) {
 			alert("Login gagal: " + err.response?.data?.message || err.message);

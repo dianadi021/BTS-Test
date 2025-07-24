@@ -16,12 +16,6 @@ const routes = [
 		component: DashboardHome,
 		meta: { requiresAuth: true },
 	},
-	// {
-	// 	path: "/admin",
-	// 	name: "Admin",
-	// 	component: Admin,
-	// 	meta: { requiresAuth: true, roles: ["admin"] },
-	// },
 ];
 
 const router = createRouter({
@@ -31,7 +25,6 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
 	const isAuthenticated = !!sessionStorage.getItem("_token");
-	
 
 	if (to.meta.requiresAuth && !isAuthenticated) {
 		return next({ name: "WelcomeHome" });
