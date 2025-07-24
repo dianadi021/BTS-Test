@@ -5,6 +5,7 @@ const store = createStore({
 	state() {
 		return {
 			user: {
+				_token: sessionStorage.getItem("_token"),
 				isLogin: !!sessionStorage.getItem("_token")
 			},
 		};

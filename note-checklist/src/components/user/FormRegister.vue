@@ -12,8 +12,9 @@
 				username: username.value,
 				password: password.value,
 			});
-
-			if (res.statusCode == 2000) {
+			
+			const response = res?.data;
+			if (response.statusCode == 2000) {
 				alert("Register sukses, silakan login.");
                 window.location.reload();
 			}
