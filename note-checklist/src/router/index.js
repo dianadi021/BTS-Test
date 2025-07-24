@@ -1,32 +1,21 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-// User SECTION Start
-import UserLogin from "../components/views/user/FormLogin.vue";
-import UserRegister from "../components/views/user/FormRegister.vue";
-// User SECTION End
-
-// import Dashboard from "../views/Dashboard.vue";
-// import Admin from "../views/Admin.vue";
+import WelcomeHome from "../views/pages/WelcomeHome.vue";
+import DashboardHome from "../views/pages/DashboardHome.vue";
 
 const routes = [
 	{
-		path: "/login",
-		name: "Login",
-		component: UserLogin,
-		meta: { guest: true },
+		path: "/",
+		name: "WelcomeHome",
+		component: WelcomeHome,
+		meta: { guest: true, requiresAuth: false },
 	},
 	{
-		path: "/register",
-		name: "Register",
-		component: UserRegister,
-		meta: { guest: true },
+		path: "/dashboard",
+		name: "DashboardHome",
+		component: DashboardHome,
+		meta: { requiresAuth: true },
 	},
-	// {
-	// 	path: "/",
-	// 	name: "Dashboard",
-	// 	component: Dashboard,
-	// 	meta: { requiresAuth: true },
-	// },
 	// {
 	// 	path: "/admin",
 	// 	name: "Admin",
@@ -41,20 +30,18 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-	const isAuthenticated = !!localStorage.getItem("token");
-	const userRole = localStorage.getItem("role"); // contoh: 'admin', 'user'
+	const isAuthenticated = !!sessionStorage.getItem("_token");
+	
 
 	if (to.meta.requiresAuth && !isAuthenticated) {
-		return next({ name: "Login" });
+		return next({ name: "WelcomeHome" });
 	}
 
-	// if (to.meta.roles && !to.meta.roles.includes(userRole)) {
-	// 	return next({ name: "Dashboard" }); // atau ke 'Unauthorized.vue'
-	// }
-
-	// if (to.meta.guest && isAuthenticated) {
-	// 	return next({ name: "Dashboard" });
-	// }
+	if (to.meta.guest && isAuthenticated) {
+		return next({ name: "DashboardHome" });
+	}
 
 	next();
 });
+
+export default router;
